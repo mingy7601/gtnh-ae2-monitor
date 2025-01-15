@@ -17,7 +17,7 @@ rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 
 st.title("GTNH - Applied Energistics Items Track")
 
-items = execute_query(conn.table("items_ae2").select("item", 'distinct'), ttl=10)
+items = execute_query(conn.table("items_ae2").select("item"), ttl=10)
 
 items = pd.DataFrame.from_dict(items.data)
 
