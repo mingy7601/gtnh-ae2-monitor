@@ -16,7 +16,7 @@ rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 
 st.title("GTNH - Applied Energistics Items Track")
 
-distinct_items = execute_query(conn.table("items_ae2").select("items").distinct(), ttl=10)
+distinct_items = execute_query(conn.table("items_ae2").select("distinct items"), ttl=10)
 
 st.write(distinct_items)
 
