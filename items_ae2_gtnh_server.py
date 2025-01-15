@@ -21,9 +21,9 @@ items = execute_query(conn.table("items_ae2").select("item"), ttl=10)
 
 items = pd.DataFrame.from_dict(items.data)
 
-#distinct_items = items.unique()
+distinct_items = items.item.unique()
 
-st.write(items)
+st.write(distinct_items)
 
 fig = px.line(rows.data, x='datetime', y='quantity', color='item')
 
