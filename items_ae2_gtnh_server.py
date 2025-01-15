@@ -2,6 +2,7 @@
 import streamlit as st
 from st_supabase_connection import SupabaseConnection, execute_query
 import plotly.express as px
+import pandas as pd
 
 st.set_page_config(
   page_title = 'GTNH - Items',
@@ -17,6 +18,8 @@ rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 st.title("GTNH - Applied Energistics Items Track")
 
 items = execute_query(conn.table("items_ae2").select("item", 'distinct'), ttl=10)
+
+items = pd.DataFrame.from_dict(items.data)
 
 st.write(items)
 
