@@ -25,9 +25,14 @@ distinct_items = items.item.unique()
 
 st.write(distinct_items)
 
-fig = px.line(rows.data, x='datetime', y='quantity', color='item')
+df = pd.DataFrame.from_dict(rows.data)
 
-st.write(fig)
+for items in distinct_items:
+  graph = df.filter(item=items)
+  
+  fig = px.line(rows.data, x='datetime', y='quantity')
+  
+  st.write(fig)
 
 
 
