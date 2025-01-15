@@ -12,6 +12,10 @@ rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 
 st.write('Dashboard working')
 
+st.write(conn)
+
+st.wirte(rows)
+
 for row in rows.data:
     st.write(f"{row['item']} has a :{row['quantity']}:")
 
