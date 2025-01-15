@@ -14,7 +14,7 @@ st.title("GTNH - Applied Energistics Items Track")
 
 #st.write(type(rows))
 
-fig = px.line(rows.data, x='item', y='quantity')
+fig = px.line(rows.data, x='datetime', y='quantity', color='item')
 
 st.write(fig)
 
