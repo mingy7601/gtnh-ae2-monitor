@@ -30,7 +30,7 @@ df = pd.DataFrame.from_dict(rows.data)
 for col in distinct_items:
   st.write(col)
 
-  st.write(df)
+  st.write(df.loc[df['item'] = col])
   #graph = df.filter(like=row)
 
   #print(graph)
