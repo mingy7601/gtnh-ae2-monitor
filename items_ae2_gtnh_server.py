@@ -6,7 +6,7 @@ from st_supabase_connection import SupabaseConnection, execute_query
 conn = st.connection("supabase",type=SupabaseConnection)
 
 # Perform query.
-rows = execute_query(conn.table("items_ae2").select("*"), ttl=0)
+rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 
 # Print results.
 for row in rows.data:
