@@ -3,16 +3,16 @@ import streamlit as st
 from st_supabase_connection import SupabaseConnection, execute_query
 import plotly.express as px
 
+st.set_page_config(
+  page_title = 'GTNH - Items',
+  layout='wide'
+)
+
 # Initialize connection.
 conn = st.connection("supabase",type=SupabaseConnection)
 
 # Perform query.
 rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
-
-st.set_page_config(
-  page_title = 'GTNH - Items',
-  layout='wide'
-)
 
 st.title("GTNH - Applied Energistics Items Track")
 
