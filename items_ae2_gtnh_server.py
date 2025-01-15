@@ -9,10 +9,16 @@ conn = st.connection("supabase",type=SupabaseConnection)
 # Perform query.
 rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 
-# Print results.
+st.set_page_config(
+  page_title = 'GTNH - Items',
+  layout='wide'
+)
+
 st.title("GTNH - Applied Energistics Items Track")
 
-#st.write(type(rows))
+distinct_items = execute_query(conn.table("items_ae2").selectdistinct("items"), ttl=10)
+
+st.write(distinct_items)
 
 fig = px.line(rows.data, x='datetime', y='quantity', color='item')
 
