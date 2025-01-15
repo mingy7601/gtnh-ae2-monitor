@@ -28,16 +28,11 @@ st.write(distinct_items)
 df = pd.DataFrame.from_dict(rows.data)
 
 for col in distinct_items:
-  st.write(col)
-
-  st.write(df.loc[df['item'] == col])
-  #graph = df.filter(like=row)
-
-  #print(graph)
+  temp_df = df.loc[df['item'] == col]
   
-  #fig = px.line(graph, x='datetime', y='quantity')
+  fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
   
-  #st.write(fig)
+  st.write(fig)
 
 
 
