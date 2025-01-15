@@ -23,7 +23,7 @@ items = pd.DataFrame.from_dict(items.data)
 
 distinct_items = items.item.unique()
 
-st.write(distinct_items)
+#st.write(distinct_items)
 
 df = pd.DataFrame.from_dict(rows.data)
 
