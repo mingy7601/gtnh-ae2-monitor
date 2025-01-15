@@ -16,9 +16,7 @@ rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 
 st.title("GTNH - Applied Energistics Items Track")
 
-distinct_items = []
-for distinct in rows.data.distinct('item'):
-    distinct_items.append(distinct)
+distinct_items = list(set(rows.data['item']))
 
 st.write(distinct_items)
 
