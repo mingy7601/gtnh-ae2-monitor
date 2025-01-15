@@ -29,6 +29,8 @@ df = pd.DataFrame.from_dict(rows.data)
 
 for items in distinct_items:
   graph = df.filter(like=items)
+
+  print(graph)
   
   fig = px.line(graph, x='datetime', y='quantity')
   
