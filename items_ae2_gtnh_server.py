@@ -1,6 +1,7 @@
 
 import streamlit as st
 from st_supabase_connection import SupabaseConnection, execute_query
+import plotly.express as px
 
 # Initialize connection.
 conn = st.connection("supabase",type=SupabaseConnection)
@@ -9,15 +10,11 @@ conn = st.connection("supabase",type=SupabaseConnection)
 rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 
 # Print results.
+st.title("GTNH - Applied Energistics Items Track")
 
-st.write('Dashboard working')
+fig = px.line(rows, x=datetime, y=quantidade, color=item)
 
-st.write(conn)
-
-st.write(rows)
-
-for row in rows.data:
-    st.write(f"{row['item']} has a :{row['quantity']}:")
+st.write(fig)
 
 
 
