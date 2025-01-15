@@ -1,12 +1,12 @@
 
 import streamlit as st
-from st_supabase_connection import SupabaseConnection
+from st_supabase_connection import SupabaseConnection, execute_query
 
 # Initialize connection.
 conn = st.connection("supabase",type=SupabaseConnection)
 
 # Perform query.
-rows = conn.query("*", table="items_ae2", ttl="10m").execute()
+rows = conn.execute_query(st_supabase_client.table("items_ae2").select("*"), ttl=0)
 
 # Print results.
 for row in rows.data:
