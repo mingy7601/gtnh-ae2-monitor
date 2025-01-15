@@ -32,9 +32,9 @@ for items in distinct_items:
 
   print(graph)
   
-  fig = px.line(graph, x='datetime', y='quantity')
+  #fig = px.line(graph, x='datetime', y='quantity')
   
-  st.write(fig)
+  #st.write(fig)
 
 
 
