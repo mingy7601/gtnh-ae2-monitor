@@ -14,7 +14,7 @@ st.write('Dashboard working')
 
 st.write(conn)
 
-st.wirte(rows)
+st.write(rows)
 
 for row in rows.data:
     st.write(f"{row['item']} has a :{row['quantity']}:")
