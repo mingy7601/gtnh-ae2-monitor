@@ -28,9 +28,9 @@ st.write(distinct_items)
 df = pd.DataFrame.from_dict(rows.data)
 
 for items in distinct_items:
-  graph = df.filter(item=items)
+  graph = df.filter(like=items)
   
-  fig = px.line(rows.data, x='datetime', y='quantity')
+  fig = px.line(graph, x='datetime', y='quantity')
   
   st.write(fig)
 
