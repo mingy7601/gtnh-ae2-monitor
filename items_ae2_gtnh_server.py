@@ -27,10 +27,11 @@ st.write(distinct_items)
 
 df = pd.DataFrame.from_dict(rows.data)
 
-for col, row in distinct_items:
-  graph = df.filter(like=row)
+for col, row in distinct_items.iterrows():
+  print(col)
+  #graph = df.filter(like=row)
 
-  print(graph)
+  #print(graph)
   
   #fig = px.line(graph, x='datetime', y='quantity')
   
