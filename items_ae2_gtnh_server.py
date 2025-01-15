@@ -27,7 +27,7 @@ st.write(distinct_items)
 
 df = pd.DataFrame.from_dict(rows.data)
 
-for col, row in distinct_items.iterrows():
+for col, row in distinct_items:
   print(col)
   #graph = df.filter(like=row)
 
