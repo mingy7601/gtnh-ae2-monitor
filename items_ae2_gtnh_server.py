@@ -12,7 +12,7 @@ rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 # Print results.
 st.title("GTNH - Applied Energistics Items Track")
 
-fig = px.line(rows, x=datetime, y=quantidade, color=item)
+fig = px.line(rows, x='datetime', y='quantidade', color='item')
 
 st.write(fig)
 
