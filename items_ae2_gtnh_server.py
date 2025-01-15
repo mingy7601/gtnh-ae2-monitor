@@ -16,9 +16,9 @@ rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
 
 st.title("GTNH - Applied Energistics Items Track")
 
-distinct_items = list(rows.data)
+items = execute_query(conn.table("items_ae2").select("item"), ttl=10)
 
-st.write(distinct_items)
+st.write(items)
 
 fig = px.line(rows.data, x='datetime', y='quantity', color='item')
 
