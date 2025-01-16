@@ -32,6 +32,8 @@ df = pd.DataFrame.from_dict(rows.data)
 
 fig = px.line(df, x='datetime', y='quantity', color='item')
 
+st.write(fig)
+
 #for col in distinct_items:
   #temp_df = df.loc[df['item'] == col]
   
