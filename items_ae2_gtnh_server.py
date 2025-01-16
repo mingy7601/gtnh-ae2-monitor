@@ -30,7 +30,7 @@ distinct_items = items.item.unique()
 
 df = pd.DataFrame.from_dict(rows.data)
 
-fig = px.line(df, x='datetime', y='quantity', color='item', title='Quantity of: ' + col)
+fig = px.line(df, x='datetime', y='quantity', color='item')
 
 #for col in distinct_items:
   #temp_df = df.loc[df['item'] == col]
