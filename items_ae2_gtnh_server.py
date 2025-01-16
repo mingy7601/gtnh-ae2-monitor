@@ -32,7 +32,7 @@ sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
 
 #fig = px.line(sort_table, x='datetime', y='quantity', color='item')
 
-st.write(fig)
+#st.write(fig)
 
 for col in distinct_items:
   temp_df = sort_table.loc[sort_table['item'] == col]
