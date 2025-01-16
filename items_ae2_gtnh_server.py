@@ -30,7 +30,9 @@ distinct_items = items.item.unique()
 
 #df = pd.DataFrame.from_dict(rows.data)
 
-fig = px.line(rows.data, x='datetime', y='quantity', color='item')
+sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
+
+fig = px.line(sort_table, x='datetime', y='quantity', color='item')
 
 st.write(fig)
 
