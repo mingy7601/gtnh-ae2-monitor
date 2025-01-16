@@ -28,20 +28,18 @@ distinct_items = items.item.unique()
 
 #st.write(distinct_items)
 
-#df = pd.DataFrame.from_dict(rows.data)
-
 sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
 
-fig = px.line(sort_table, x='datetime', y='quantity', color='item')
+#fig = px.line(sort_table, x='datetime', y='quantity', color='item')
 
 st.write(fig)
 
-#for col in distinct_items:
-  #temp_df = df.loc[df['item'] == col]
+for col in distinct_items:
+  temp_df = sort_table.loc[sort_table['item'] == col]
   
-  #fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
+  fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
   
-  #st.write(fig)
+  st.write(fig)
 
 
 
