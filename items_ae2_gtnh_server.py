@@ -28,9 +28,9 @@ distinct_items = items.item.unique()
 
 #st.write(distinct_items)
 
-df = pd.DataFrame.from_dict(rows.data)
+#df = pd.DataFrame.from_dict(rows.data)
 
-fig = px.line(df, x='datetime', y='quantity', color='item')
+fig = px.line(rows.data, x='datetime', y='quantity', color='item')
 
 st.write(fig)
 
