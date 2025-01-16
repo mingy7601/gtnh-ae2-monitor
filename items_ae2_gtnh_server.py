@@ -16,11 +16,11 @@ count = st_autorefresh(interval=5000, limit=100, key="fizzbuzzcounter")
 conn = st.connection("supabase",type=SupabaseConnection)
 
 # Perform query.
-rows = execute_query(conn.table("items_ae2").select("*"), ttl=10)
+rows = execute_query(conn.table("items_ae2").select("*"), ttl=100)
 
 st.title("GTNH - Applied Energistics Items Track")
 
-items = execute_query(conn.table("items_ae2").select("item"), ttl=10)
+items = execute_query(conn.table("items_ae2").select("item"), ttl=100)
 
 items = pd.DataFrame.from_dict(items.data)
 
