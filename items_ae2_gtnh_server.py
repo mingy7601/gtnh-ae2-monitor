@@ -1,6 +1,6 @@
 
 import streamlit as st
-from streamlit_autorefresh import st_autorefresh
+#from streamlit_autorefresh import st_autorefresh
 from st_supabase_connection import SupabaseConnection, execute_query
 import plotly.express as px
 import pandas as pd
@@ -10,7 +10,7 @@ st.set_page_config(
   layout='wide'
 )
 
-count = st_autorefresh(interval=5000, limit=100, key="fizzbuzzcounter")
+#count = st_autorefresh(interval=5000, limit=100, key="fizzbuzzcounter")
 
 # Initialize connection.
 conn = st.connection("supabase",type=SupabaseConnection)
