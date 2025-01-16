@@ -30,12 +30,14 @@ distinct_items = items.item.unique()
 
 df = pd.DataFrame.from_dict(rows.data)
 
-for col in distinct_items:
-  temp_df = df.loc[df['item'] == col]
+fig = px.line(df, x='datetime', y='quantity', color='item', title='Quantity of: ' + col)
+
+#for col in distinct_items:
+  #temp_df = df.loc[df['item'] == col]
   
-  fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
+  #fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
   
-  st.write(fig)
+  #st.write(fig)
 
 
 
