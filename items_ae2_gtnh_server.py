@@ -16,7 +16,7 @@ st.set_page_config(
 conn = st.connection("supabase",type=SupabaseConnection)
 
 # Perform query.
-rows = execute_query(conn.table("items_ae2").select("*").eq("id=12880"), ttl='10m')
+rows = execute_query(conn.table("items_ae2").select("*").eq("id",12880), ttl='10m')
 
 st.title("GTNH - Applied Energistics Items Track")
 
