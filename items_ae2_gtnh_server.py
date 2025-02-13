@@ -16,7 +16,7 @@ st.set_page_config(
 # Initialize connection.
 conn = st.connection("supabase",type=SupabaseConnection)
 
-filter = datetime.datetime.today() - datetime.timedelta(days=2)
+filter = datetime.datetime.today() - datetime.timedelta(days=4)
 
 # Perform query.
 rows = execute_query(conn.table("items_ae2").select("*").filter(("datetime"),"gt",filter), ttl='20m')
