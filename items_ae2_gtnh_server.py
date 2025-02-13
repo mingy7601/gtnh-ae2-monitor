@@ -4,6 +4,7 @@ import streamlit as st
 from st_supabase_connection import SupabaseConnection, execute_query
 import plotly.express as px
 import pandas as pd
+import datetime
 
 st.set_page_config(
   page_title = 'GTNH - Items',
@@ -15,8 +16,10 @@ st.set_page_config(
 # Initialize connection.
 conn = st.connection("supabase",type=SupabaseConnection)
 
+filter = datetime.datetime.today() - datetime.timedelta(days=2)
+
 # Perform query.
-rows = execute_query(conn.table("items_ae2").select("*").filter(("datetime"),"gt",'2025-01-20'), ttl='20m')
+rows = execute_query(conn.table("items_ae2").select("*").filter(("datetime"),"gt",filter), ttl='20m')
 
 st.title("GTNH - Applied Energistics Items Track")
 
