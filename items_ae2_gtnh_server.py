@@ -57,7 +57,7 @@ for seconds in range(200):
       last_24h["real_production"] = last_24h["quantity"].diff().fillna(0)
       total_production = last_24h["real_production"].sum()
       total_hours = (last_24h["datetime"].max() - last_24h["datetime"].min()).total_seconds() / 3600
-      st.write(total_hours)
+      st.write(pd.Timestamp.now())
       kpi_avg = (total_production / total_hours).round(0).astype(int)
 
       kpi_change = total_production.round(0).astype(int) 
