@@ -50,7 +50,9 @@ for seconds in range(200):
   with fig_col1:
     st.markdown("### "+items_filter)
     item_track = sort_table.loc[sort_table['item'] == items_filter]
-    st.write(item_track)
+    filter_last_lines = sort_table.tail(96)
+    kpi_change = filter_last_lines['quantity'].tail(1) - filter_last_lines['quantity'].head(1) 
+    st.write(kpi_change)
 
   with fig_col2:
     fig1 = px.line(item_track, x='datetime', y='quantity', title='Quantity of: ' + items_filter)
