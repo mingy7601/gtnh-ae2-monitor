@@ -56,13 +56,13 @@ for seconds in range(200):
     
     initial_value = last_24h['quantity'].iloc[0]
     kpi_avg = (last_24h['quantity'] - initial_value).mean().round(0).astype(int)
-    st.metric(label="Average produced", value=kpi_avg)
+    st.metric(label="Average produced", value="{:,}".format(kpi_avg))
 
     kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int)
-    st.metric(label="Amount produced in the last 24h", value=kpi_change)
+    st.metric(label="Amount produced", value="{:,}".format(kpi_change))
 
     kpi_dev = last_24h['quantity'].std().round(0).astype(int)
-    st.metric(label="Standard Deviation in the last 24h", value=kpi_dev)
+    st.metric(label="Standard Deviation", value="{:,}".format(kpi_dev))
 
 
 
