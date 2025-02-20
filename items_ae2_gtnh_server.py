@@ -11,6 +11,8 @@ st.set_page_config(
   layout='wide'
 )
 
+supabase_table = "items_ae2"
+
 #count = st_autorefresh(interval=5000, limit=100, key="fizzbuzzcounter")
 
 # Initialize connection.
@@ -19,11 +21,11 @@ conn = st.connection("supabase",type=SupabaseConnection)
 filter = datetime.datetime.today() - datetime.timedelta(days=4)
 
 # Perform query.
-rows = execute_query(conn.table("items_ae2").select("*").filter(("datetime"),"gt",filter), ttl='20m')
+rows = execute_query(conn.table(supabase_table).select("*").filter(("datetime"),"gt",filter), ttl='20m')
 
 st.title("GTNH - Applied Energistics Items Track")
 
-items = execute_query(conn.table("items_ae2").select("item"), ttl='10m')
+items = execute_query(conn.table(supabase_table).select("item"), ttl='10m')
 
 items = pd.DataFrame.from_dict(items.data)
 
