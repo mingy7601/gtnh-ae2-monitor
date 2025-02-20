@@ -58,9 +58,9 @@ for seconds in range(200):
     avg_df = last_24h[["datetime", "quantity"]].copy()
     avg_df.set_index("datetime", inplace=True)
     
-
     kpi_avg = avg_df.resample("H").mean().round(0).astype(int)
-    st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
+    st.write(kpi_avg)
+    #st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
 
     kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int)
     st.metric(label="Total Amount Produced", value="{:,}".format(kpi_change))
