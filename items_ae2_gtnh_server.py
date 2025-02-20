@@ -61,24 +61,13 @@ for seconds in range(200):
 
       kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int) 
     
-    st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
+    st.metric(label="Average Produced per Hour", value="{:,}".format(kpi_avg))
     st.metric(label="Total Amount Produced", value="{:,}".format(kpi_change))
-
-
-
 
   with fig_col2:
     fig1 = px.line(item_track, x='datetime', y='quantity', title='Quantity of: ' + items_filter)
     st.write(fig1)
 
-  with st.expander("All items:"):
-
-    for col in distinct_items:
-      temp_df = sort_table.loc[sort_table['item'] == col]
-      
-      fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
-      
-      st.write(fig)
 
   time.sleep(5)
 
