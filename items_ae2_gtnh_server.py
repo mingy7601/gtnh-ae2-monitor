@@ -52,7 +52,7 @@ for seconds in range(200):
 
     st.markdown("#### Past 24-hour metrics")
     item_track = sort_table.loc[sort_table['item'] == items_filter]
-    last_24h = item_track[item_track["datetime"] >= pd.Timestamp.now() - pd.Timedelta(days=1)]
+    last_24h = item_track[pd.to_datetime(item_track["datetime"]) >= pd.Timestamp.now() - pd.Timedelta(days=1)]
     
     initial_value = last_24h['quantity'].iloc[0]
     kpi_avg = (last_24h['quantity'] - initial_value).mean()
