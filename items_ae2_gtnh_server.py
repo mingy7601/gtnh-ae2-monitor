@@ -55,13 +55,13 @@ for seconds in range(200):
     last_24h = item_track[pd.to_datetime(item_track["datetime"]) >= pd.Timestamp.now() - pd.Timedelta(days=1)]
     
     initial_value = last_24h['quantity'].iloc[0]
-    kpi_avg = (last_24h['quantity'] - initial_value).mean().round(0)
+    kpi_avg = (last_24h['quantity'] - initial_value).mean().round(0).astype(int)
     st.metric(label="Average produced", value=kpi_avg)
 
-    kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0)
+    kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int)
     st.metric(label="Amount produced in the last 24h", value=kpi_change)
 
-    kpi_dev = last_24h['quantity'].std().round(0)
+    kpi_dev = last_24h['quantity'].std().round(0).astype(int)
     st.metric(label="Standard Deviation in the last 24h", value=kpi_dev)
 
 
