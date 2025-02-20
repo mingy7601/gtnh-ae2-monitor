@@ -49,7 +49,7 @@ for seconds in range(200):
 
     item_track = sort_table.loc[sort_table['item'] == items_filter]
     item_track['datetime'] = pd.to_datetime(item_track["datetime"])
-    last_24h = item_track[item_track["datetime"] >= pd.Timestamp.now() - pd.Timedelta(days=1)]
+    last_24h = item_track[item_track["datetime"] >= datetime.datetime.now(pytz.timezone("America/Sao_Paulo")) - pd.Timedelta(days=1)]
 
     if len(last_24h) <= 1:
       kpi_avg = 0
@@ -58,7 +58,8 @@ for seconds in range(200):
       last_24h["real_production"] = last_24h["quantity"].diff().fillna(0)
       total_production = last_24h["real_production"].sum()
       total_hours = (last_24h["datetime"].max() - last_24h["datetime"].min()).total_seconds() / 3600
-      st.write(datetime.datetime.now(pytz.timezone("America/Sao_Paulo")))
+      st.write(last_24h["datetime"].max())
+      st.write(last_24h["datetime"].min())
       kpi_avg = (total_production / total_hours).round(0).astype(int)
 
       kpi_change = total_production.round(0).astype(int) 
