@@ -46,15 +46,20 @@ for seconds in range(200):
 
   sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
 
-  #fig = px.line(sort_table, x='datetime', y='quantity', color='item')
+  fig_col1, fig_col2 = st.columns(2)
+  with fig_col1:
+    st.markdown("### {items_filter}:")
+    item_track = sort_table.loc[sort_table['item'] == items_filter]
+    fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
 
   #st.write(fig)
+  with st.expander("All items:"):
 
-  for col in distinct_items:
-    temp_df = sort_table.loc[sort_table['item'] == col]
-    
-    fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
-    
-    st.write(fig)
+    for col in distinct_items:
+      temp_df = sort_table.loc[sort_table['item'] == col]
+      
+      fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
+      
+      st.write(fig)
 
   time.sleep(5)
