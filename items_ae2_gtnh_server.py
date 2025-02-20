@@ -52,17 +52,18 @@ for seconds in range(200):
 
     st.markdown("#### Past 24-hour metrics")
     item_track = sort_table.loc[sort_table['item'] == items_filter]
-    last_24h = item_track[pd.to_datetime(item_track["datetime"]) >= pd.Timestamp.now() - pd.Timedelta(days=1)]
+    item_track['datetime'] = pd.to_datetime(item_track["datetime"])
+    last_24h = item_track[item_track["datetime"] >= pd.Timestamp.now() - pd.Timedelta(days=1)]
     
-    initial_value = last_24h['quantity'].iloc[0]
-    kpi_avg = (last_24h['quantity'] - initial_value).mean().round(0).astype(int)
-    st.metric(label="Average produced", value="{:,}".format(kpi_avg))
+    avg_df = last_24h.copy()
+    avg_df.set_index("datetime", inplace=True)
+
+    kpi_avg = avg_df.resample("H").mean().round(0).astype(int)
+    st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
 
     kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int)
-    st.metric(label="Amount produced", value="{:,}".format(kpi_change))
+    st.metric(label="Total Amount Produced", value="{:,}".format(kpi_change))
 
-    kpi_dev = last_24h['quantity'].std().round(0).astype(int)
-    st.metric(label="Standard Deviation", value="{:,}".format(kpi_dev))
 
 
 
