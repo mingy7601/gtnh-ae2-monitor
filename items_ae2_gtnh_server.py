@@ -55,8 +55,9 @@ for seconds in range(200):
     item_track['datetime'] = pd.to_datetime(item_track["datetime"])
     last_24h = item_track[item_track["datetime"] >= pd.Timestamp.now() - pd.Timedelta(days=1)]
     
-    avg_df = last_24h.copy()
+    avg_df = last_24h[["datetime, quantity"]].copy()
     avg_df.set_index("datetime", inplace=True)
+    
 
     kpi_avg = avg_df.resample("H").mean().round(0).astype(int)
     st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
