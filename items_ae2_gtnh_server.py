@@ -59,7 +59,7 @@ for seconds in range(200):
       total_hours = (last_24h["datetime"].max() - last_24h["datetime"].min()).total_seconds() / 3600
       kpi_avg = (total_production / total_hours).round(0).astype(int)
 
-      kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int) 
+      kpi_change = total_production.round(0).astype(int) 
     
     st.metric(label="Average Produced per Hour", value="{:,}".format(kpi_avg))
     st.metric(label="Total Amount Produced", value="{:,}".format(kpi_change))
