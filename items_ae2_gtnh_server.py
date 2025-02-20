@@ -17,7 +17,7 @@ st.set_page_config(
 st.title("GTNH - Applied Energistics Items Track")
 
 # Refresh the page every 15 minutes (900,000 milliseconds)
-st_autorefresh(interval=10000, key="refresh_page")
+st_autorefresh(interval=900000, key="refresh_page")
 
 # Supabase Table
 supabase_table = "items_ae2"
