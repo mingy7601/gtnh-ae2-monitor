@@ -50,7 +50,7 @@ for seconds in range(200):
   with fig_col1:
     st.markdown("### "+items_filter)
     item_track = sort_table.loc[sort_table['item'] == items_filter]
-    fig = px.line(item_track, x='datetime', y='quantity', title='Quantity of: ' + col)
+    fig = px.line(item_track, x='datetime', y='quantity', title='Quantity of: ' + items_filter)
 
   #st.write(fig)
   with st.expander("All items:"):
