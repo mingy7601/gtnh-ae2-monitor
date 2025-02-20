@@ -51,20 +51,23 @@ for seconds in range(200):
     st.markdown("### "+items_filter)
 
     st.markdown("#### Past 24-hour metrics")
+
     item_track = sort_table.loc[sort_table['item'] == items_filter]
     item_track['datetime'] = pd.to_datetime(item_track["datetime"])
     last_24h = item_track[item_track["datetime"] >= pd.Timestamp.now() - pd.Timedelta(days=1)]
-    
-    last_24h["real_production"] = last_24h["quantity"].diff().fillna(0)
-    total_production = last_24h["real_production"].sum()
-    total_hours = (last_24h["datetime"].max() - last_24h["datetime"].min()).total_seconds() / 3600
-    kpi_avg = (total_production / total_hours).round(0).astype(int)
-    st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
 
-    if len(last_24h) > 1:
-      kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int)
-    else:
+    if len(last_24h) <= 1:
+      kpi_avg = 0
       kpi_change = 0
+    else:
+      last_24h["real_production"] = last_24h["quantity"].diff().fillna(0)
+      total_production = last_24h["real_production"].sum()
+      total_hours = (last_24h["datetime"].max() - last_24h["datetime"].min()).total_seconds() / 3600
+      kpi_avg = (total_production / total_hours).round(0).astype(int)
+
+      kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int) 
+    
+    st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
     st.metric(label="Total Amount Produced", value="{:,}".format(kpi_change))
 
 
