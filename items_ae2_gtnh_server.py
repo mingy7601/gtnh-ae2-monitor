@@ -49,7 +49,8 @@ for seconds in range(200):
 
     item_track = sort_table.loc[sort_table['item'] == items_filter]
     item_track['datetime'] = pd.to_datetime(item_track["datetime"])
-    last_24h = item_track[item_track["datetime"] >= pd.to_timedelta(datetime.datetime.now(pytz.timezone("America/Sao_Paulo"))) - pd.Timedelta(days=1)]
+    now = datetime.datetime.now(pytz.timezone("America/Sao_Paulo"))
+    last_24h = item_track[item_track["datetime"] >= now - pd.Timedelta(days=1)]
 
     if len(last_24h) <= 1:
       kpi_avg = 0
