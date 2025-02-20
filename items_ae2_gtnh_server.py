@@ -46,7 +46,7 @@ for seconds in range(200):
 
   sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
 
-  fig_col1, fig_col2 = st.columns(2)
+  fig_col1, fig_col2 = st.columns(0.2, 0.8)
   with fig_col1:
     st.markdown("### "+items_filter)
 
