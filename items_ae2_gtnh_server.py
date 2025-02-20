@@ -55,7 +55,7 @@ for seconds in range(200):
     item_track['datetime'] = pd.to_datetime(item_track["datetime"])
     last_24h = item_track[item_track["datetime"] >= pd.Timestamp.now() - pd.Timedelta(days=1)]
     
-    avg_df = last_24h[["datetime, quantity"]].copy()
+    avg_df = last_24h[["datetime", "quantity"]].copy()
     avg_df.set_index("datetime", inplace=True)
     
 
