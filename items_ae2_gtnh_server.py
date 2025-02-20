@@ -49,10 +49,22 @@ for seconds in range(200):
   fig_col1, fig_col2 = st.columns(2)
   with fig_col1:
     st.markdown("### "+items_filter)
+
+    st.markdown("#### Past 24-hour metrics")
     item_track = sort_table.loc[sort_table['item'] == items_filter]
-    filter_last_lines = sort_table.tail(96)
-    kpi_change = (filter_last_lines['quantity'].iloc[-1] - filter_last_lines['quantity'].iloc[0])
-    st.write(kpi_change)
+    last_24h = item_track[item_track["datetime"] >= pd.Timestamp.now() - pd.Timedelta(days=1)]
+    
+    initial_value = last_24h['quantity'].iloc[0]
+    kpi_avg = (last_24h['quantity'] - initial_value).mean()
+    st.metric(label="Average produced", value=kpi_avg)
+
+    kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0])
+    st.metric(label="Amount produced in the last 24h", value=kpi_change)
+
+    kpi_dev = last_24h['quantity'].std()
+    st.metric(label="Standard Deviation in the last 24h", value=kpi_dev)
+
+
 
   with fig_col2:
     fig1 = px.line(item_track, x='datetime', y='quantity', title='Quantity of: ' + items_filter)
