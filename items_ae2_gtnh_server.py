@@ -24,19 +24,13 @@ conn = st.connection("supabase",type=SupabaseConnection)
 # Filter last items from the last 4 days
 filter = datetime.datetime.today() - datetime.timedelta(days=4)
 
-# Perform query from supabase
-rows = execute_query(conn.table(supabase_table).select("*").filter(("datetime"),"gt",filter), ttl='20m')
-
 # Get the list os items
-items = rows['item'].copy()
+items = execute_query(conn.table(supabase_table).select("item").filter(("datetime"),"gt",filter), ttl='20m')
 items = pd.DataFrame.from_dict(items.data)
 distinct_items = items.item.unique()
 
 # Select Box to filter a item
 items_filter = st.selectbox("Select the Item", distinct_items)
-
-# Creating a single-element container.
-placeholder = st.empty()
 
 # Update the dash every 15 minutes
 for seconds in range(200):
