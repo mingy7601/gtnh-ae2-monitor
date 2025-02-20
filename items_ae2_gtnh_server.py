@@ -51,7 +51,7 @@ for seconds in range(200):
     st.markdown("### "+items_filter)
     item_track = sort_table.loc[sort_table['item'] == items_filter]
     filter_last_lines = sort_table.tail(96)
-    kpi_change = filter_last_lines['quantity'].tail(1) - filter_last_lines['quantity'].head(1) 
+    kpi_change = pd.to_numeric(filter_last_lines['quantity'].tail(1))
     st.write(kpi_change)
 
   with fig_col2:
