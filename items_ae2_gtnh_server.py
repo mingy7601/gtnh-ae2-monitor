@@ -61,7 +61,10 @@ for seconds in range(200):
     kpi_avg = (total_production / total_hours).round(0).astype(int)
     st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
 
-    kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int)
+    if len(last_24h) > 1:
+      kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int)
+    else:
+      kpi_change = 0
     st.metric(label="Total Amount Produced", value="{:,}".format(kpi_change))
 
 
