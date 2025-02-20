@@ -28,7 +28,8 @@ filter = datetime.datetime.today() - datetime.timedelta(days=4)
 rows = execute_query(conn.table(supabase_table).select("*").filter(("datetime"),"gt",filter), ttl='20m')
 
 # Get the list os items
-items = pd.DataFrame.from_dict(rows['item'].data)
+items = rows['item'].copy()
+items = pd.DataFrame.from_dict(items.data)
 distinct_items = items.item.unique()
 
 # Select Box to filter a item
