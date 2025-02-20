@@ -5,11 +5,14 @@ from st_supabase_connection import SupabaseConnection, execute_query
 import plotly.express as px
 import pandas as pd
 import datetime
+import time
 
 st.set_page_config(
-  page_title = 'GTNH - Items',
+  page_title = 'GTNH - Items Tracker',
   layout='wide'
 )
+
+st.title("GTNH - Applied Energistics Items Track")
 
 supabase_table = "items_ae2"
 
@@ -18,33 +21,40 @@ supabase_table = "items_ae2"
 # Initialize connection.
 conn = st.connection("supabase",type=SupabaseConnection)
 
+# Filter last items from the last 4 days
 filter = datetime.datetime.today() - datetime.timedelta(days=4)
 
-# Perform query.
+# Perform query from supabase
 rows = execute_query(conn.table(supabase_table).select("*").filter(("datetime"),"gt",filter), ttl='20m')
 
-st.title("GTNH - Applied Energistics Items Track")
-
+# Get the list os items
 items = execute_query(conn.table(supabase_table).select("item"), ttl='10m')
-
 items = pd.DataFrame.from_dict(items.data)
-
 distinct_items = items.item.unique()
 
-#st.write(distinct_items)
+# Select Box to filter a item
+items_filter = st.selectbox("Select the Item", distinct_items)
 
-sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
+# Creating a single-element container.
+placeholder = st.empty()
 
-#fig = px.line(sort_table, x='datetime', y='quantity', color='item')
+# Update the dash every 15 minutes
+for seconds in range(200):
 
-#st.write(fig)
+  rows = execute_query(conn.table(supabase_table).select("*").filter(("datetime"),"gt",filter), ttl='20m')
+  #st.write(distinct_items)
 
-for col in distinct_items:
-  temp_df = sort_table.loc[sort_table['item'] == col]
-  
-  fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
-  
-  st.write(fig)
+  sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
 
+  #fig = px.line(sort_table, x='datetime', y='quantity', color='item')
 
+  #st.write(fig)
 
+  for col in distinct_items:
+    temp_df = sort_table.loc[sort_table['item'] == col]
+    
+    fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
+    
+    st.write(fig)
+
+  time.sleep(5)
