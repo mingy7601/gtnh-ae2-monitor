@@ -49,11 +49,13 @@ for seconds in range(200):
   fig_col1, fig_col2 = st.columns(2)
   with fig_col1:
     st.markdown("### "+items_filter)
+    st.write(item_track)
+
+  with fig_col2:
     item_track = sort_table.loc[sort_table['item'] == items_filter]
     fig1 = px.line(item_track, x='datetime', y='quantity', title='Quantity of: ' + items_filter)
     st.write(fig1)
 
-  #st.write(fig)
   with st.expander("All items:"):
 
     for col in distinct_items:
@@ -64,3 +66,4 @@ for seconds in range(200):
       st.write(fig)
 
   time.sleep(5)
+
