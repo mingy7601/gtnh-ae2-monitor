@@ -49,7 +49,9 @@ for seconds in range(200):
 
     item_track = sort_table.loc[sort_table['item'] == items_filter]
     item_track['datetime'] = pd.to_datetime(item_track["datetime"])
-    now = datetime.datetime.now(pytz.timezone("America/Sao_Paulo"))
+    #now = datetime.datetime.now(pytz.timezone("America/Sao_Paulo"))
+    now = pd.Timestamp.now(tz="America/Sao_Paulo")
+    now = now.tz_localize(None)
     last_24h = item_track[item_track["datetime"] >= now - pd.Timedelta(days=1)]
 
     if len(last_24h) <= 1:
