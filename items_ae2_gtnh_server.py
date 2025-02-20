@@ -55,12 +55,11 @@ for seconds in range(200):
     item_track['datetime'] = pd.to_datetime(item_track["datetime"])
     last_24h = item_track[item_track["datetime"] >= pd.Timestamp.now() - pd.Timedelta(days=1)]
     
-    avg_df = last_24h[["datetime", "quantity"]].copy()
-    avg_df.set_index("datetime", inplace=True)
-    
-    kpi_avg = avg_df.resample("H").mean().round(0).astype(int)
-    st.write(kpi_avg)
-    #st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
+    last_24h["real_production"] = last_24h["quantity"].diff().fillna(0)
+    total_production = last_24h["real_production"].sum()
+    total_hours = (last_24h["datetime"].max() - last_24h["datetime"].min()).total_seconds() / 3600
+    kpi_avg = (total_production / total_hours).round(0).astype(int)
+    st.metric(label="Average Produced", value="{:,}".format(kpi_avg))
 
     kpi_change = (last_24h['quantity'].iloc[-1] - last_24h['quantity'].iloc[0]).round(0).astype(int)
     st.metric(label="Total Amount Produced", value="{:,}".format(kpi_change))
