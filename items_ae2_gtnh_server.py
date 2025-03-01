@@ -1,13 +1,21 @@
-
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
-from st_supabase_connection import SupabaseConnection, execute_query
+from st_supabase_connection import SupabaseConnection
+from st_supabase_connection import execute_query
 import plotly.express as px
 import pandas as pd
+import tomllib
 import datetime
 import time
 import pytz
 
+with open("./.streamlit/secrets.toml", "rb") as f:
+    config = tomllib.load(f)
+
+supabase_url = config["connections"]["supabase"]["SUPABASE_URL"]
+supabase_key = config["connections"]["supabase"]["SUPABASE_KEY"]
+
+filter = datetime.datetime.today() - datetime.timedelta(days= 4)
 
 st.set_page_config(
   page_title = 'GTNH - Items Tracker',
@@ -16,20 +24,18 @@ st.set_page_config(
 
 st.title("GTNH - Applied Energistics Items Track")
 
-# Refresh the page every 15 minutes (900,000 milliseconds)
-st_autorefresh(interval=900000, key="refresh_page")
-
 # Supabase Table
-supabase_table = "gtnh-items"
+# supabase_table = "gtnh-items"
+st_supabase = st.connection(
+    name="supabase_connection", 
+    type=SupabaseConnection, 
+    ttl=None,
+    url=supabase_url, 
+    key=supabase_key, 
+)
 
-# Initialize connection.
-conn = st.connection("supabase",type=SupabaseConnection)
+items = execute_query(st_supabase.table("gtnh-items").select("*", count="None"), ttl=None)
 
-# Filter last items from the last 4 days
-filter = datetime.datetime.today() - datetime.timedelta(days=4)
-
-# Get the list os items
-items = execute_query(conn.table(supabase_table).select("item").filter(("datetime"),"gt",filter), ttl='20m')
 items = pd.DataFrame.from_dict(items.data)
 distinct_items = items.item.unique()
 
@@ -37,7 +43,7 @@ distinct_items = items.item.unique()
 items_filter = st.selectbox("Select the Item", distinct_items)
 
 # Connection with supabase
-rows = execute_query(conn.table(supabase_table).select("*").filter(("datetime"),"gt",filter), ttl='20m')
+rows = execute_query(st_supabase.table("gtnh-items").select("*").filter(("datetime"),"gt",filter), ttl='20m')
 
 # Convert to DataFrame and Sort the table
 sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
@@ -82,5 +88,3 @@ with st.expander("All items:"):
     fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
     
     st.write(fig)
-
-
